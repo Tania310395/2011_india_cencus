@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Usecase3</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for ('static' , filename ='abc.css')}}">
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+
+<body>
+    <h3 style="color:blue; text-align: center; font-size: 30px; font-family: verdana;">Mobile penetration vary in regions (districts or states) with high or low agricultural workers</h3>
+    <div style="border: 1px solid blue; padding: 30px; margin: 50px; text-align: center; background-color: powderblue; box-shadow: 5px 5px #888888;">
+        <form class="form-signin" action="/usercase/2" method="post" role="form">
+            <h4>By which Parameter you want to see</h4>
+            <select name="value" id='value'>
+                <option value='1'>According to state</option>
+                <option value='2'>According to district</option>
+            </select>
+            <div style='padding: 10px; margin: 10px;'>
+                <button id="btn-submit" class='button' type="button">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div> 
+        <div id="chart1Container" style="height: 500px; width: 100%; padding: 100px;"></div>
+        <div id='chart2Container' style="height: 500px; width: 100%; padding: 100px;"></div>
+        <div id='chart3Container' style="height: 700px; width: 100%;"></div>
+    </div>
+    <script type="text/javascript">
+    $("#btn-submit").on('click', function() {
+        $.ajax({
+            url: '/usecase/3',
+            method: 'POST',
+            data: $('form').serialize(),
+            success: function(data) {
+                var obj = jQuery.parseJSON(data)
+                console.log(obj.agriculture)
+                console.log(obj.mobile)
+                console.log(obj.mobileareachart1)
+                console.log(obj.agricultureareachart2)
+                var chart1 = new CanvasJS.Chart("chart1Container", {
+                    title: {
+                        text: "mobile penetration value"
+                    },
+                    height: 500,
+                    width: 1000,
+                    data: [{
+                        type: "column",
+                        dataPoints: obj.mobile
+                    }, ]
+                });
+                chart1.render();
+                var chart2 = new CanvasJS.Chart("chart2Container", {
+                    title: {
+                        text: "agricultural workers"
+                    },
+                    height: 500,
+                    width: 1000,
+                    data: [{
+                        type: "column",
+                        dataPoints: obj.agriculture
+                    }, ]
+                });
+                chart2.render();
+                var chart3 = new CanvasJS.Chart("chart3Container", {
+                    title: {
+                        text: "mobile penetration vary in regions with high or low agricultural workers"
+
+                    },
+                    data: [{
+                        type: "bar",
+                        legendText: "mobile penetration",
+                        showInLegend: true,
+                        dataPoints: obj.mobileareachart1
+                    }, {
+                        type: "bar",
+                        legendText: "agriculture workers",
+                        showInLegend: true,
+                        dataPoints: obj.agricultureareachart2
+                    }]
+                });
+
+                chart3.render();
+            },
+            error: function(error) {
+                console.log(error)
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Project</title>
+</head>
+
+<body>
+    <h1 style="color:blue; text-align: center; font-size: 30px; font-family: verdana;">2011 India Census</h1>
+    <p style="text-align: center; font-size: 20px; font-family: verdana;"><span style="font-size: 25px; font-family: courier;">Description:</span>Indian government carries out census every decade. This dataset contains information from the 2011 census with district level granularity on population, gender, literacy, socioeconomic status (electricity, mobiles, Internet) among a lot of other dimensions.</p>
+    <div style="border: 5px solid blue; padding: 30px; margin: 50px; background-color: powderblue; box-shadow: 5px 5px #888888;">
+        <h3 style="text-align: center;">Questions to answer</h3>
+        <ol>
+            <li><a href="{{url_for('usecase1')}}">Create a graphical representation of states with low literacy rates</a></li>
+            <li><a href="{{url_for('usecase2')}}">Find out most similar districts in Bihar and Tamil Nadu. Similarity can be based on any of the columns from the data</a></li>
+            <li><a href="{{url_for('usecase3')}}">How does the mobile penetration vary in regions (districts or states) with high or low agricultural workers?</a></li>
+        </ol>
+    </div>
+</body>
+
+</html>
